@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permisos para descargar e instalar APKs -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <!-- Necesario en Android 11+ para comprobar si estas apps están instaladas -->
+    <queries>
+        <!-- Fallback: ver apps con launcher (detecta algunas que <package> no muestra) -->
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+        <package android:name="yqtrack.app" />
+        <package android:name="com.twofasapp" />
+        <package android:name="com.addimobile" />
+        <package android:name="com.alibaba.aliexpresshd" />
+        <package android:name="app.vpn.amtunnelpro" />
+        <package android:name="com.amazon.mShop.android.shopping" />
+        <package android:name="com.apkmirror.helper.prod" />
+        <package android:name="com.astropaycard.android" />
+        <package android:name="com.google.android.apps.walletnfcrel" />
+        <package android:name="com.intsig.camscanner" />
+        <package android:name="com.rcntv.rcntv" />
+        <package android:name="com.king.candycrushsaga" />
+        <package android:name="com.openai.chatgpt" />
+        <package android:name="com.android.chrome" />
+        <package android:name="co.gov.metromedellin.appCivicanew" />
+        <package android:name="air.com.sgn.cookiejam.gp" />
+        <package android:name="com.microsoft.copilot" />
+        <package android:name="fm.anchor.android" />
+        <package android:name="com.halfbrick.dantheman" />
+        <package android:name="com.davivienda.daviplataapp" />
+        <package android:name="com.decathlon.app" />
+        <package android:name="com.deepseek.chat" />
+        <package android:name="com.didiglobal.passenger" />
+        <package android:name="com.discord" />
+        <package android:name="com.disney.disneyplus" />
+        <package android:name="com.google.android.apps.docs.editors.docs" />
+        <package android:name="com.dolarapp" />
+        <package android:name="com.google.android.apps.docs" />
+        <package android:name="com.microsoft.appmanager" />
+        <package android:name="com.epidemicsound.player" />
+        <package android:name="com.exito.appcompania" />
+        <package android:name="com.facebook.katana" />
+        <package android:name="com.figma.mirror" />
+        <package android:name="com.google.android.apps.nbu.files" />
+        <package android:name="com.ionicframework.tabs842240" />
+        <package android:name="com.google.android.apps.photos" />
+        <package android:name="com.google.android.apps.bard" />
+        <package android:name="com.google.android.gm" />
+        <package android:name="com.google.android.googlequicksearchbox" />
+        <package android:name="ai.x.grok" />
+        <package android:name="com.hp.printercontrol" />
+        <package android:name="com.spotlightsix.zentimerlite2" />
+        <package android:name="com.instagram.android" />
+        <package android:name="gr.nikolasspyr.integritycheck" />
+        <package android:name="com.iqor.iqorian" />
+        <package android:name="io.github.vvb2060.keyattestation" />
+        <package android:name="com.gamma.scan" />
+        <package android:name="co.littio.app" />
+        <package android:name="org.localsend.localsend_app" />
+        <package android:name="com.google.android.apps.maps" />
+        <package android:name="com.google.android.apps.messaging" />
+        <package android:name="com.mercadolibre" />
+        <package android:name="com.mercadopago.wallet" />
+        <package android:name="com.facebook.orca" />
+        <package android:name="co.com.bancolombia.personas.superapp" />
+        <package android:name="com.xiaomi.wearable" />
+        <package android:name="movistar.android.app" />
+        <package android:name="com.midatacredito" />
+        <package android:name="ai.moises" />
+        <package android:name="in.krosbits.musicolet" />
+        <package android:name="com.nequi.MobileApp" />
+        <package android:name="com.netflix.mediaclient" />
+        <package android:name="com.intcomex.smart" />
+        <package android:name="com.nu.production" />
+        <package android:name="com.microsoft.office.outlook" />
+        <package android:name="com.patreon.android" />
+        <package android:name="com.king.petrescuesaga" />
+        <package android:name="co.picap.passenger" />
+        <package android:name="com.plip" />
+        <package android:name="com.amazon.avod.thirdpartyclient" />
+        <package android:name="com.spookyhousestudios.progressbar95" />
+        <package android:name="com.ProteccionApp" />
+        <package android:name="com.pco.app.cliente" />
+        <package android:name="co.rapicredit" />
+        <package android:name="com.google.android.deskclock" />
+        <package android:name="com.weberdo.apps.serviceinfo" />
+        <package android:name="com.xiaomi.midrop" />
+        <package android:name="com.shazam.android" />
+        <package android:name="com.eokoe.smartfitcoach" />
+        <package android:name="pl.solidexplorer2" />
+        <package android:name="com.solventa.app" />
+        <package android:name="com.sony.songpal.mdr" />
+        <package android:name="com.spotify.music" />
+        <package android:name="com.suno.android" />
+        <package android:name="krypton.tbsafetychecker" />
+        <package android:name="org.thunderdog.challegram" />
+        <package android:name="com.einnovation.temu" />
+        <package android:name="com.instagram.barcelona" />
+        <package android:name="com.truecaller" />
+        <package android:name="com.ubercab" />
+        <package android:name="mark.via.gp" />
+        <package android:name="com.wallpaperscraft.wallpaper" />
+        <package android:name="wp.wattpad" />
+        <package android:name="com.whatsapp" />
+        <package android:name="com.twitter.android" />
+        <package android:name="cn.xender" />
+        <package android:name="com.mi.earphone" />
+        <package android:name="ru.zdevs.zarchiver" />
+        <package android:name="com.htetznaing.zfont2" />
+        <!-- Apps instalables por APK (Standalone APK tab) -->
+        <package android:name="app.revanced.android.gms" />
+        <package android:name="org.frknkrc44.hma_oss" />
+        <package android:name="tafsan.utgyzt.uynwdw" />
+        <package android:name="app.lawnchair" />
+        <package android:name="app.lawnchair.lawnicons" />
+        <package android:name="com.reveny.nativecheck" />
+        <package android:name="com.theveloper.pixelplay" />
+        <package android:name="app.revanced.manager.flutter" />
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppDownloader">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppDownloader">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- FileProvider para instalar APKs en Android 7+ -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>
