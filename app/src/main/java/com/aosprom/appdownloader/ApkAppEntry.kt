@@ -36,26 +36,26 @@ object ApkApps {
         ApkAppEntry(
             packageName = "kernelsu.next",
             displayName = "KernelSU Next",
-            downloadUrl = "https://github.com/KernelSU-Next/KernelSU-Next/releases/download/v1.0.3/KernelSU_Next_v1.0.3-spoofed_32967-release.apk",
+            downloadUrl = "https://github.com/KernelSU-Next/KernelSU-Next/releases/download/v3.0.1/KernelSU_Next_v3.0.1-spoofed_32967-release.apk",
             identifyByDisplayName = true,
             githubRepo = "KernelSU-Next/KernelSU-Next"
         ),
         ApkAppEntry(
             packageName = "app.lawnchair",
             displayName = "Lawnchair",
-            downloadUrl = "https://github.com/LawnchairLauncher/lawnchair/releases/download/v14.0.0-beta2/Lawnchair.14.0.0.Beta.2.apk",
+            downloadUrl = "https://github.com/LawnchairLauncher/lawnchair/releases/download/v15.0.0-beta2/Lawnchair.15.0.0.Beta.2.apk",
             githubRepo = "LawnchairLauncher/lawnchair"
         ),
         ApkAppEntry(
             packageName = "app.lawnchair.lawnicons",
             displayName = "Lawnicons",
-            downloadUrl = "https://github.com/LawnchairLauncher/lawnicons/releases/download/v2.10.0/Lawnicons.2.10.0.apk",
+            downloadUrl = "https://github.com/LawnchairLauncher/lawnicons/releases/download/v2.17.0/Lawnicons.2.17.0.apk",
             githubRepo = "LawnchairLauncher/lawnicons"
         ),
         ApkAppEntry(
             packageName = "com.reveny.nativecheck",
             displayName = "Native Detector",
-            downloadUrl = "https://github.com/reveny/Android-Native-Root-Detector/releases/download/v1.2.0/native-root-detector-v1.2.0.apk",
+            downloadUrl = "https://github.com/reveny/Android-Native-Root-Detector/releases/download/v7.6.1/native-root-detector-v7.6.1.apk",
             githubRepo = "reveny/Android-Native-Root-Detector"
         ),
         ApkAppEntry(
@@ -67,7 +67,7 @@ object ApkApps {
         ApkAppEntry(
             packageName = "app.revanced.manager.flutter",
             displayName = "ReVanced Manager",
-            downloadUrl = "https://github.com/ReVanced/revanced-manager/releases/download/v1.23.0/revanced-manager-1.23.0.apk",
+            downloadUrl = "https://github.com/ReVanced/revanced-manager/releases/download/v1.25.1/revanced-manager-1.25.1.apk",
             githubRepo = "ReVanced/revanced-manager"
         ),
         ApkAppEntry(

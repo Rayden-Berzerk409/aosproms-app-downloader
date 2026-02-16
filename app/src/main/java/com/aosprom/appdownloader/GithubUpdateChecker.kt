@@ -37,29 +37,30 @@ object GithubUpdateChecker {
                     
                     var downloadUrl = ""
                     if (assets.length() > 0) {
-                        // 1. Try to find an APK that is NOT a Huawei variant
+                        val candidates = mutableListOf<String>()
                         for (i in 0 until assets.length()) {
                             val asset = assets.getJSONObject(i)
                             val url = asset.getString("browser_download_url")
-                            if (url.endsWith(".apk", ignoreCase = true) && !url.contains("-hw", ignoreCase = true)) {
-                                downloadUrl = url
-                                break
+                            if (url.endsWith(".apk", ignoreCase = true)) {
+                                candidates.add(url)
                             }
                         }
 
-                        // 2. If no non-hw APK found, try any APK
-                        if (downloadUrl.isEmpty()) {
-                            for (i in 0 until assets.length()) {
-                                val asset = assets.getJSONObject(i)
-                                val url = asset.getString("browser_download_url")
-                                if (url.endsWith(".apk", ignoreCase = true)) {
-                                    downloadUrl = url
-                                    break
-                                }
-                            }
+                        // Filter out debug (unless no other option)
+                        var filtered = candidates.filter { !it.contains("debug", ignoreCase = true) }
+                        if (filtered.isEmpty()) filtered = candidates
+
+                        if (repo.equals("KernelSU-Next/KernelSU-Next", ignoreCase = true)) {
+                            // KernelSU Next: Prefer "spoofed" variant
+                            val spoofed = filtered.find { it.contains("spoofed", ignoreCase = true) }
+                            downloadUrl = spoofed ?: filtered.firstOrNull() ?: ""
+                        } else {
+                            // General: Avoid "-hw" variant (Huawei)
+                            val standard = filtered.find { !it.contains("-hw", ignoreCase = true) }
+                            downloadUrl = standard ?: filtered.firstOrNull() ?: ""
                         }
 
-                        // 3. Fallback to first asset if no APK found
+                        // Fallback to first asset if no APK found (unlikely but safe)
                         if (downloadUrl.isEmpty()) {
                             downloadUrl = assets.getJSONObject(0).getString("browser_download_url")
                         }

@@ -38,8 +38,15 @@ class DownloadViewModel(application: Application) : AndroidViewModel(application
 
     suspend fun checkUpdates(packageManager: PackageManager, launcherInfo: LauncherInfo) {
         ApkApps.list.forEach { app ->
+            // Resolve effective package name (handle spoofing)
+            val effectivePackageName = if (app.identifyByDisplayName) {
+                findPackageByDisplayName(launcherInfo, app.displayName) ?: app.packageName
+            } else {
+                app.packageName
+            }
+
             // Check if installed
-            val installedVersion = getInstalledVersion(packageManager, app.packageName)
+            val installedVersion = getInstalledVersion(packageManager, effectivePackageName)
             val isInstalled = installedVersion != null
 
             // Cleanup APK if installed
@@ -51,8 +58,15 @@ class DownloadViewModel(application: Application) : AndroidViewModel(application
                 val release = GithubUpdateChecker.getLatestRelease(app.githubRepo) // Suspend function
                 if (release != null) {
                     if (installedVersion != null) {
-                        val cleanTag = release.tagName.removePrefix("v")
-                        val cleanInstalled = installedVersion.removePrefix("v")
+                        val cleanTag = release.tagName.removePrefix("v").removePrefix("V")
+                            .substringBefore("_").trim()
+
+                        // Remove "-spoofed" and build numbers/suffixes for clean comparison
+                        val cleanInstalled = installedVersion.removePrefix("v").removePrefix("V")
+                             .replace("-spoofed", "", ignoreCase = true)
+                             .substringBefore("_")
+                             .substringBefore("-release")
+                             .trim()
                         
                         if (cleanTag != cleanInstalled) {
                             updateAppState(app.packageName) {
