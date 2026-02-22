@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Downloader</string>
+    <string name="get_apps_button">Get Apps</string>
+    <string name="get_apps_subtitle">Install default apps from Google Play</string>
+    <string name="get_apps_disclaimer">Google does not allow automatic installation from the Play Store. Each app will open in Play so you can tap \"Install\" on each one.</string>
+    <string name="app_list_title">App List</string>
+    <string name="installed">Installed</string>
+    <string name="not_installed">Not Installed</string>
+    <string name="tab_preset_apps">Preset Apps</string>
+    <string name="tab_standalone_apk">Standalone APK</string>
+    <string name="apk_url_hint">APK URL (https://...)</string>
+    <string name="download_and_install">Download and Install</string>
+    <string name="downloading">Downloading...</string>
+    <string name="installing">Installing...</string>
+    <string name="download_complete">Download complete</string>
+    <string name="install_complete">Installation complete</string>
+    <string name="error_invalid_url">Invalid URL</string>
+    <string name="error_download_failed">Download error</string>
+    <string name="error_install_failed">Installation error</string>
+
+    <string name="apps_installable_apk">Apps installable via APK (GitHub or other URLs)</string>
+    <string name="downloading_percent">Downloading %d%%</string>
+    <string name="update_available">Update available: %s</string>
+    <string name="update_desc">Update</string>
+    <string name="installed_desc">Installed</string>
+    <string name="install_steps_title">Installation Steps</string>
+    <string name="open_play_protect">Open Play Protect</string>
+    <string name="open_play_protect_desc">Verify that Play Protect does not block the installation.</string>
+    <string name="allow_unknown_sources">Allow Unknown Sources</string>
+    <string name="allow_unknown_sources_desc">Go to Settings and allow unknown apps for AppDownloader.</string>
+    <string name="install_apk">Install APK</string>
+    <string name="install_apk_desc">Start package installation.</string>
+    <string name="install_action">Install</string>
+    <string name="cancel">Cancel</string>
+    <string name="open_action">Open</string>
+    <string name="material_you">Material You</string>
+    <string name="language">Language</string>
+
+    <!-- Dialog for unsupported language -->
+    <string name="lang_unsupported_title">Language currently not supported</string>
+    <string name="lang_unsupported_desc">The system language (%1$s) is currently not supported.\nThe app will use English (United States) as default.\n\nSupported languages: Español, English.</string>
+    <string name="ok_button">Okay</string>
+</resources>

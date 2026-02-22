@@ -120,7 +120,7 @@ fun StandaloneApkScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Apps instalables por APK (GitHub u otras URLs)",
+                text = stringResource(R.string.apps_installable_apk),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.fillMaxWidth(),
@@ -282,8 +282,8 @@ fun StandaloneApkScreen(
                                 Spacer(modifier = Modifier.height(4.dp))
                                 
                                 val statusText = when {
-                                    appState.isDownloading -> "Descargando ${(appState.progress * 100).toInt()}%"
-                                    appState.isUpdateAvailable -> "Actualización disponible: ${appState.latestVersion}"
+                                    appState.isDownloading -> stringResource(R.string.downloading_percent, (appState.progress * 100).toInt())
+                                    appState.isUpdateAvailable -> stringResource(R.string.update_available, appState.latestVersion ?: "")
                                     isInstalled -> stringResource(R.string.installed)
                                     else -> stringResource(R.string.not_installed)
                                 }
@@ -317,7 +317,7 @@ fun StandaloneApkScreen(
                                     if (appState.isUpdateAvailable) {
                                          Icon(
                                             androidx.compose.material.icons.Icons.Default.SystemUpdate,
-                                            contentDescription = "Actualizar",
+                                            contentDescription = stringResource(R.string.update_desc),
                                             tint = MaterialTheme.colorScheme.primary
                                         )
                                     } else if (isInstalled) {
@@ -326,7 +326,7 @@ fun StandaloneApkScreen(
                                         // Or just checkmark.
                                         Icon(
                                             androidx.compose.material.icons.Icons.Default.Check,
-                                            contentDescription = "Instalado"
+                                            contentDescription = stringResource(R.string.installed_desc)
                                         )
                                     } else {
                                         Icon(
@@ -355,14 +355,14 @@ fun InstallationWizardDialog(
     
     androidx.compose.material3.AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Pasos de Instalación") },
+        title = { Text(stringResource(R.string.install_steps_title)) },
         text = {
             Column {
                 if (showPlayProtect) {
                      WizardStep(
                         stepNumber = 1,
-                        text = "Abrir Play Protect",
-                        description = "Verifica que Play Protect no bloquee la instalación.",
+                        text = stringResource(R.string.open_play_protect),
+                        description = stringResource(R.string.open_play_protect_desc),
                         isActive = currentStep == 1,
                         isCompleted = currentStep > 1,
                         action = {
@@ -383,8 +383,8 @@ fun InstallationWizardDialog(
                     )
                      WizardStep(
                         stepNumber = 2,
-                        text = "Permitir Fuentes Desconocidas",
-                        description = "Ve a Configuración y permite instalar apps desconocidas para AppDownloader.",
+                        text = stringResource(R.string.allow_unknown_sources),
+                        description = stringResource(R.string.allow_unknown_sources_desc),
                         isActive = currentStep == 2,
                         isCompleted = currentStep > 2,
                          action = {
@@ -404,19 +404,19 @@ fun InstallationWizardDialog(
                     )
                      WizardStep(
                         stepNumber = 3,
-                        text = "Instalar APK",
-                        description = "Iniciar la instalación del paquete.",
+                        text = stringResource(R.string.install_apk),
+                        description = stringResource(R.string.install_apk_desc),
                         isActive = currentStep == 3,
                         isCompleted = false, 
                         action = onInstallRequest,
-                        actionLabel = "Instalar"
+                        actionLabel = stringResource(R.string.install_action)
                     )
                 } else {
                      // 2-Step Flow (Skipping Play Protect)
                      WizardStep(
                         stepNumber = 1,
-                        text = "Permitir Fuentes Desconocidas",
-                        description = "Ve a Configuración y permite instalar apps desconocidas para AppDownloader.",
+                        text = stringResource(R.string.allow_unknown_sources),
+                        description = stringResource(R.string.allow_unknown_sources_desc),
                         isActive = currentStep == 1,
                         isCompleted = currentStep > 1,
                          action = {
@@ -436,19 +436,19 @@ fun InstallationWizardDialog(
                     )
                      WizardStep(
                         stepNumber = 2,
-                        text = "Instalar APK",
-                        description = "Iniciar la instalación del paquete.",
+                        text = stringResource(R.string.install_apk),
+                        description = stringResource(R.string.install_apk_desc),
                         isActive = currentStep == 2,
                         isCompleted = false, 
                         action = onInstallRequest,
-                        actionLabel = "Instalar"
+                        actionLabel = stringResource(R.string.install_action)
                     )
                 }
             }
         },
         confirmButton = {
             androidx.compose.material3.TextButton(onClick = onDismiss) {
-                Text("Cancelar")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -462,7 +462,7 @@ fun WizardStep(
     isActive: Boolean, 
     isCompleted: Boolean,
     action: () -> Unit,
-    actionLabel: String = "Abrir"
+    actionLabel: String = stringResource(R.string.open_action)
 ) {
     Row(
         modifier = Modifier

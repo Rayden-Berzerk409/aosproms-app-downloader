@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Downloader</string>
+    <string name="get_apps_button">Get Apps</string>
+    <string name="get_apps_subtitle">Installs the predetermined applist from Google Play</string>
+    <string name="get_apps_disclaimer">Google doesn\'t allow automatic install of apps from Play Store. Each app will open in Google Play so you can hit \"Install\" for each app.</string>
+    <string name="app_list_title">App List</string>
+    <string name="installed">Installed</string>
+    <string name="not_installed">Not Installed</string>
+    <string name="tab_preset_apps">Preset Apps</string>
+    <string name="tab_standalone_apk">Standalone APK</string>
+    <string name="apk_url_hint">APK URL (https://...)</string>
+    <string name="download_and_install">Download and Install</string>
+    <string name="downloading">Downloading...</string>
+    <string name="installing">Installing...</string>
+    <string name="download_complete">Download completed</string>
+    <string name="install_complete">Install completed</string>
+    <string name="error_invalid_url">Invalid URL</string>
+    <string name="error_download_failed">Error while downloading</string>
+    <string name="error_install_failed">Error while installing</string>
+</resources>

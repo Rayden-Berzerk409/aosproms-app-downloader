@@ -4,7 +4,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.IconButton
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
@@ -60,7 +66,7 @@ enum class Tab {
 
 
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     /** Índice de la siguiente app a abrir en Play Store cuando el usuario vuelve. */
     private var nextPlayStoreIndex: Int = -1
@@ -71,8 +77,53 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        val prefs = getSharedPreferences("app_prefs", android.content.Context.MODE_PRIVATE)
+        val isFirstLaunch = prefs.getBoolean("first_language_check", true)
+        
+        if (isFirstLaunch && AppCompatDelegate.getApplicationLocales().isEmpty) {
+            val sysLocales = android.content.res.Resources.getSystem().configuration.locales
+            if (!sysLocales.isEmpty) {
+                val sysLocale = sysLocales.get(0)
+                val sysLanguage = sysLocale.language
+                if (sysLanguage != "es" && sysLanguage != "en") {
+                    prefs.edit()
+                        .putBoolean("show_unsupported_lang_dialog", true)
+                        .putString("detected_lang", sysLocale.displayLanguage)
+                        .putBoolean("first_language_check", false)
+                        .apply()
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en-US"))
+                    return // Activity will recreate
+                } else {
+                    prefs.edit().putBoolean("first_language_check", false).apply()
+                }
+            }
+        }
+        
         enableEdgeToEdge()
         setContent {
+            var showUnsupportedDialog by remember { mutableStateOf(prefs.getBoolean("show_unsupported_lang_dialog", false)) }
+            val detectedLang = prefs.getString("detected_lang", "") ?: ""
+            
+            if (showUnsupportedDialog) {
+                androidx.compose.material3.AlertDialog(
+                    onDismissRequest = {
+                        showUnsupportedDialog = false
+                        prefs.edit().putBoolean("show_unsupported_lang_dialog", false).apply()
+                    },
+                    title = { Text(stringResource(R.string.lang_unsupported_title)) },
+                    text = { Text(stringResource(R.string.lang_unsupported_desc, detectedLang)) },
+                    confirmButton = {
+                        androidx.compose.material3.TextButton(onClick = {
+                            showUnsupportedDialog = false
+                            prefs.edit().putBoolean("show_unsupported_lang_dialog", false).apply()
+                        }) {
+                            Text(stringResource(R.string.ok_button))
+                        }
+                    }
+                )
+            }
+
             val refreshKey by listRefreshKey
             var selectedTab by remember { mutableStateOf(Tab.PRESET_APPS) }
             
@@ -86,12 +137,39 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = { Text(stringResource(R.string.app_name)) },
                             actions = {
+                                var expandedLanguage by remember { mutableStateOf(false) }
+                                
+                                Box {
+                                    IconButton(onClick = { expandedLanguage = true }) {
+                                        Icon(Icons.Default.Language, contentDescription = stringResource(R.string.language))
+                                    }
+                                    DropdownMenu(
+                                        expanded = expandedLanguage,
+                                        onDismissRequest = { expandedLanguage = false }
+                                    ) {
+                                        DropdownMenuItem(
+                                            text = { Text("Español") },
+                                            onClick = {
+                                                expandedLanguage = false
+                                                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("es"))
+                                            }
+                                        )
+                                        DropdownMenuItem(
+                                            text = { Text("English") },
+                                            onClick = {
+                                                expandedLanguage = false
+                                                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en-US"))
+                                            }
+                                        )
+                                    }
+                                }
+
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.padding(end = 16.dp)
                                 ) {
                                     Text(
-                                        text = "Material You",
+                                        text = stringResource(R.string.material_you),
                                         style = MaterialTheme.typography.labelMedium,
                                         modifier = Modifier.padding(end = 8.dp)
                                     )

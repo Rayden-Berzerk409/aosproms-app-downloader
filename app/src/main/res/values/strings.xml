@@ -17,4 +17,28 @@
     <string name="error_invalid_url">URL inválida</string>
     <string name="error_download_failed">Error al descargar</string>
     <string name="error_install_failed">Error al instalar</string>
+
+    <!-- New Strings for Standalone APK & Settings -->
+    <string name="apps_installable_apk">Apps instalables por APK (GitHub u otras URLs)</string>
+    <string name="downloading_percent">Descargando %d%%</string>
+    <string name="update_available">Actualización disponible: %s</string>
+    <string name="update_desc">Actualizar</string>
+    <string name="installed_desc">Instalado</string>
+    <string name="install_steps_title">Pasos de Instalación</string>
+    <string name="open_play_protect">Abrir Play Protect</string>
+    <string name="open_play_protect_desc">Verifica que Play Protect no bloquee la instalación.</string>
+    <string name="allow_unknown_sources">Permitir Fuentes Desconocidas</string>
+    <string name="allow_unknown_sources_desc">Ve a Configuración y permite instalar apps desconocidas para AppDownloader.</string>
+    <string name="install_apk">Instalar APK</string>
+    <string name="install_apk_desc">Iniciar la instalación del paquete.</string>
+    <string name="install_action">Instalar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="open_action">Abrir</string>
+    <string name="material_you">Material You</string>
+    <string name="language">Idioma</string>
+
+    <!-- Dialog for unsupported language -->
+    <string name="lang_unsupported_title">Idioma actual no soportado</string>
+    <string name="lang_unsupported_desc">El idioma de tu sistema (%1$s) no está soportado actualmente.\nLa app utilizará English (United States) por defecto.\n\nIdiomas soportados: Español, English.</string>
+    <string name="ok_button">Okay</string>
 </resources>
