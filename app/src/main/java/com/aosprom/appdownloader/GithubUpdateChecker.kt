@@ -17,7 +17,13 @@ object GithubUpdateChecker {
     suspend fun getLatestRelease(repo: String): GithubRelease? {
         return withContext(Dispatchers.IO) {
             try {
-                val url = URL("https://api.github.com/repos/$repo/releases/latest")
+                val useReleasesArray = repo.equals("LawnchairLauncher/lawnchair", ignoreCase = true)
+                val urlStr = if (useReleasesArray) {
+                    "https://api.github.com/repos/$repo/releases"
+                } else {
+                    "https://api.github.com/repos/$repo/releases/latest"
+                }
+                val url = URL(urlStr)
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.setRequestProperty("Accept", "application/vnd.github.v3+json")
@@ -31,8 +37,13 @@ object GithubUpdateChecker {
                     }
                     reader.close()
                     
-                    val json = JSONObject(response.toString())
-                    val tagName = json.getString("tag_name")
+                    val json = if (useReleasesArray) {
+                        val array = org.json.JSONArray(response.toString())
+                        if (array.length() > 0) array.getJSONObject(0) else return@withContext null
+                    } else {
+                        JSONObject(response.toString())
+                    }
+                    var tagName = json.getString("tag_name")
                     val assets = json.getJSONArray("assets")
                     
                     var downloadUrl = ""
@@ -54,6 +65,13 @@ object GithubUpdateChecker {
                             // KernelSU Next: Prefer "spoofed" variant
                             val spoofed = filtered.find { it.contains("spoofed", ignoreCase = true) }
                             downloadUrl = spoofed ?: filtered.firstOrNull() ?: ""
+                            
+                            // Extract exact version from filename if possible to match "-spoofed"
+                            val fileName = downloadUrl.substringAfterLast("/")
+                            val extractedTag = fileName.removePrefix("KernelSU_Next_").substringBefore("_")
+                            if (extractedTag.isNotEmpty() && extractedTag != fileName) {
+                                tagName = extractedTag
+                            }
                         } else {
                             // General: Avoid "-hw" variant (Huawei)
                             val standard = filtered.find { !it.contains("-hw", ignoreCase = true) }

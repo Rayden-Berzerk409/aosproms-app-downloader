@@ -61,14 +61,28 @@ class DownloadViewModel(application: Application) : AndroidViewModel(application
                         val cleanTag = release.tagName.removePrefix("v").removePrefix("V")
                             .substringBefore("_").trim()
 
-                        // Remove "-spoofed" and build numbers/suffixes for clean comparison
+                        // Remove build numbers/suffixes for clean comparison
                         val cleanInstalled = installedVersion.removePrefix("v").removePrefix("V")
-                             .replace("-spoofed", "", ignoreCase = true)
                              .substringBefore("_")
                              .substringBefore("-release")
                              .trim()
+
+                        var finalInstalled = cleanInstalled
+                        var finalTag = cleanTag
                         
-                        if (cleanTag != cleanInstalled) {
+                        // Specific fix for Lawnchair version mismatches (e.g. "15.Beta 2.1" vs "v15.0.0-beta2.1")
+                        if (app.packageName == "app.lawnchair") {
+                            finalInstalled = finalInstalled.lowercase()
+                                .replace(" ", "")
+                                .replace(".beta", "-beta")
+                                .replace(".0.0", "")
+                            finalTag = finalTag.lowercase()
+                                .replace(" ", "")
+                                .replace(".beta", "-beta")
+                                .replace(".0.0", "")
+                        }
+                        
+                        if (finalTag != finalInstalled) {
                             updateAppState(app.packageName) {
                                 it.copy(
                                     isUpdateAvailable = true,
